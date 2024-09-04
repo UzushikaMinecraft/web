@@ -1,0 +1,84 @@
+* {
+  font-family: "Hiragino Sans", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: .7rem;
+  line-height: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+main {
+  min-height: 90vh;
+  min-width: 290px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  min-width: 290px;
+}
+
+main img[alt="server-icon"] {
+  width: 7rem;
+  margin-right: .5rem;
+  border-radius: 9999px;
+}
+
+main img[alt="banner_1"] {
+  margin-top: 1rem;
+}
+
+p {
+  font-weight: 500;
+  font-size: .9rem;
+  margin: 0;
+}
+
+ul {
+  font-weight: 200;
+  font-size: .9rem;
+  margin-top: .1rem;
+  padding-top: .1rem;
+  margin-left: .6rem;
+  padding-left: .6rem;
+  margin-bottom: .3rem;
+  padding-bottom: .3rem;
+}
+
+li {
+  font-size: .9rem;
+  font-weight: 200;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: 290px;
+}
+
+table,
+th,
+td {
+  border: .5px solid black;
+}
+
+th,
+td {
+  padding: 8px;
+}
+
+th {
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+td {
+  font-weight: 200;
+  font-size: .9rem;
+}
