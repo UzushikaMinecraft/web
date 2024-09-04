@@ -3,6 +3,7 @@ import { LoaderFunction, redirect } from "@remix-run/server-runtime";
 import { fetchApiObject, fetchApiText } from "~/utils/fetchApi.server";
 import { NamedProfile, Profile } from "~/model/profile";
 import { millisToRoundedTime } from "~/utils/utils";
+import { Experience } from "~/utils/experience";
 
 interface LoaderData {
     profile: NamedProfile | null;
@@ -19,11 +20,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function ProfilePage() {
     const { profile } = useLoaderData<LoaderData>();
+    if (!profile) return redirect('/404');
+    const experience = new Experience(profile.experience);
     return profile && (
         <>
             <h2>プロフィール</h2>
             <img src={`https://crafatar.com/renders/head/${profile.uuid}`} alt={""} />
-            <table>
+            <table style={{marginTop: '.5rem'}}>
                 <tbody>
                     <tr>
                         <td>ID:</td>
@@ -52,6 +55,14 @@ export default function ProfilePage() {
                     <tr>
                         <td>経験値:</td>
                         <td>{profile.experience}</td>
+                    </tr>
+                    <tr>
+                        <td>レベルアップに必要な経験値:</td>
+                        <td>{experience.getExperienceToLevelUp()} ({experience.getPercentageToNextLevel()}%)</td>
+                    </tr>
+                    <tr>
+                        <td>レベル:</td>
+                        <td>{experience.getCurrentLevel()}</td>
                     </tr>
                     <tr>
                         <td>通貨:</td>
