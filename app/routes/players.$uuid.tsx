@@ -46,7 +46,7 @@ export default function ProfilePage() {
                         <td>{profile.name}</td>
                     </tr>
                     <tr>
-                        <td>プレイ環境</td>
+                        <td>プレイ環境:</td>
                         <td>{profile.is_bedrock ? "統合版" : "Java版"}</td>
                     </tr>
                     <tr>
