@@ -10,10 +10,13 @@ export default function Layout() {
                             <Link to="/">ウズシカ鯖</Link>
                         </li>
                         <li>
-                            <Link to="/profiles">プレイヤーリスト</Link>
+                            <Link to="/players">プレイヤーリスト👱</Link>
                         </li>
                         <li>
-                            <Link to="/servers">サーバーリスト</Link>
+                            <Link to="/leaderboard">リーダーボード🏆️</Link>
+                        </li>
+                        <li>
+                            <Link to="/servers">サーバーステータス🌍️</Link>
                         </li>
                     </ul>
                 </nav>

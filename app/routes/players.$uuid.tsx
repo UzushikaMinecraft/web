@@ -24,7 +24,7 @@ export default function ProfilePage() {
     const experience = new Experience(profile.experience);
     return profile && (
         <>
-            <h2>プロフィール</h2>
+            <h2>プレイヤー: {profile.name}</h2>
             <img src={`https://crafatar.com/renders/head/${profile.uuid}`} alt={""} />
             <table style={{marginTop: '.5rem'}}>
                 <tbody>
@@ -62,7 +62,7 @@ export default function ProfilePage() {
                     </tr>
                     <tr>
                         <td>レベル:</td>
-                        <td>{experience.getCurrentLevel()}</td>
+                        <td>Lv.{experience.getCurrentLevel()}</td>
                     </tr>
                     <tr>
                         <td>通貨:</td>

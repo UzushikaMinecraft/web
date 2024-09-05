@@ -1,5 +1,6 @@
 export const routerPaths = {
   "/": "/",
+  "/leaderboard": "/leaderboard",
   "/profiles": "/profiles",
   "/profiles/:uuid"(params: { uuid: string | number }) {
     return buildPath("/profiles/:uuid", params);
@@ -14,6 +15,9 @@ export const routerPaths = {
 export const unsafeRouterPaths = {
   "/"(params: Record<string, unknown>) {
     return unsafeBuildPath("/", params);
+  },
+  "/leaderboard"(params: Record<string, unknown>) {
+    return unsafeBuildPath("/leaderboard", params);
   },
   "/profiles"(params: Record<string, unknown>) {
     return unsafeBuildPath("/profiles", params);
@@ -36,6 +40,7 @@ export type RouterPath = keyof typeof routerPaths;
 
 export type RouterParams = {
   "/": {};
+  "/leaderboard": {};
   "/profiles": {};
   "/profiles/:uuid": { uuid: string };
   "/servers": {};
@@ -45,6 +50,7 @@ export type RouterParams = {
 
 type InputParams = {
   "/": {};
+  "/leaderboard": {};
   "/profiles": {};
   "/profiles/:uuid": { uuid: string | number };
   "/servers": {};

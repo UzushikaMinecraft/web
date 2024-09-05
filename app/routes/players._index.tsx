@@ -8,7 +8,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-    const profiles = await fetchApiObject<Profile[] | null>(`profiles`);
+    const profiles = await fetchApiObject<Profile[] | null>(`profiles?order_by=id&sort=asc`);
     if (!profiles) return redirect('/404');
     const namedProfiles = await Promise.all(profiles.map(async profile => {
         const name = await fetchApiText(`external/mojang/${profile.uuid}/name`);
@@ -27,10 +27,13 @@ export default function ProfilePage() {
                     {profiles.map((profile, key) => (
                         <tr key={key}>
                             <td>
+                                {profile.id}
+                            </td>
+                            <td>
                                 <img src={`https://crafatar.com/avatars/${profile.uuid}?size=25&default=MHF_Steve&overlay`} alt={""} width={25} />
                             </td>
                             <td>
-                                <Link to={`/profiles/${profile.uuid}`}>{profile.name}</Link>
+                                <Link to={`/players/${profile.uuid}`}>{profile.name}</Link>
                             </td>
                         </tr>
                     ))}

@@ -17,7 +17,7 @@ export default function ProfilePage() {
     const { servers } = useLoaderData<LoaderData>();
     return servers && (
         <>
-            <h2>サーバーリスト</h2>
+            <h2>サーバーステータス</h2>
             <ul>
                 {servers.map((server, key) => (
                     <li key={key}>
