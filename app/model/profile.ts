@@ -1,5 +1,6 @@
 export interface Profile {
     id: number;
+    name: string;
     uuid: string;
     initial_login_date: string;
     last_login_date: string;
@@ -9,8 +10,6 @@ export interface Profile {
     total_build_blocks: number;
     total_destroy_blocks: number;
     total_mob_kills: number;
-}
-
-export interface NamedProfile extends Profile {
-    name: string | null;
+    is_bedrock: boolean;
+    xuid: string;
 }

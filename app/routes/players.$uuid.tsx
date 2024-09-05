@@ -1,12 +1,12 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { LoaderFunction, redirect } from "@remix-run/server-runtime";
 import { fetchApiObject, fetchApiText } from "~/utils/fetchApi.server";
-import { NamedProfile, Profile } from "~/model/profile";
+import { Profile } from "~/model/profile";
 import { millisToRoundedTime } from "~/utils/utils";
 import { Experience } from "~/utils/experience";
 
 interface LoaderData {
-    profile: NamedProfile | null;
+    profile: Profile | null;
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -14,8 +14,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     if (!uuid || typeof uuid !== "string") return redirect('/')
     const profile = await fetchApiObject<Profile | null>(`profiles/${uuid}`);
     if (!profile) return redirect('/404');
-    const name = await fetchApiText(`external/mojang/${uuid}/name`);
-    return { profile: { ...profile, name: name == null ? "Bedrock Player" : name } };
+    return { profile };
 }
 
 export default function ProfilePage() {
@@ -25,7 +24,13 @@ export default function ProfilePage() {
     return profile && (
         <>
             <h2>プレイヤー: {profile.name}</h2>
-            <img src={`https://crafatar.com/renders/head/${profile.uuid}`} alt={""} />
+            {
+                profile.is_bedrock ? (
+                    <img src="https://crafatar.com/renders/head/c06f8906-4c8a-4911-9c29-ea1dbd1aab82" alt="" />
+                ) : (
+                    <img src={`https://crafatar.com/renders/head/${profile.uuid}`} alt={""} />
+                )
+            }
             <table style={{marginTop: '.5rem'}}>
                 <tbody>
                     <tr>
@@ -39,6 +44,10 @@ export default function ProfilePage() {
                     <tr>
                         <td>名前:</td>
                         <td>{profile.name}</td>
+                    </tr>
+                    <tr>
+                        <td>プレイ環境</td>
+                        <td>{profile.is_bedrock ? "統合版" : "Java版"}</td>
                     </tr>
                     <tr>
                         <td>初回ログイン日時:</td>

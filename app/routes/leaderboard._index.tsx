@@ -1,13 +1,13 @@
 import { Link, useHref, useLoaderData, useNavigate } from "@remix-run/react";
 import { LoaderFunction, redirect } from "@remix-run/server-runtime";
 import { fetchApiObject, fetchApiText } from "~/utils/fetchApi.server";
-import { NamedProfile, Profile } from "~/model/profile";
+import { Profile } from "~/model/profile";
 import { useEffect, useState } from "react";
 import { millisToRoundedTime } from "~/utils/utils";
 import { Experience } from "~/utils/experience";
 
 interface LoaderData {
-    profiles: NamedProfile[] | null;
+    profiles: Profile[] | null;
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -18,11 +18,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     }
     const profiles = await fetchApiObject<Profile[] | null>(`profiles?order_by=${orderBy}&sort=desc`);
     if (!profiles) return redirect('/404');
-    const namedProfiles = await Promise.all(profiles.map(async profile => {
-        const name = await fetchApiText(`external/mojang/${profile.uuid}/name`);
-        return { ...profile, name: name == null ? "Bedrock Player" : name };
-    }));
-    return { profiles: namedProfiles }
+    return { profiles }
 }
 
 export type OrderBy = 'experience' | 'total_play_time';
@@ -32,7 +28,7 @@ export default function LeaderboardPage() {
     const navigate = useNavigate();
     const [orderBy, setOrderBy] = useState<OrderBy>('experience');
     useEffect(() => {
-        navigate({pathname: '/leaderboard', search: `?orderBy=${orderBy}`});
+        navigate({ pathname: '/leaderboard', search: `?orderBy=${orderBy}` });
     }, [orderBy]);
     return profiles && (
         <>
@@ -49,7 +45,7 @@ export default function LeaderboardPage() {
                     <option value="total_play_time">総プレイ時間</option>
                 </select>
             </label>
-            <table style={{marginTop: '.5rem'}}>
+            <table style={{ marginTop: '.5rem' }}>
                 <thead>
                     <tr>
                         <th>順位</th>
@@ -67,7 +63,13 @@ export default function LeaderboardPage() {
                                 {key + 1}位
                             </td>
                             <td>
-                                <img src={`https://crafatar.com/avatars/${profile.uuid}?size=25&default=MHF_Steve&overlay`} alt={""} width={25} />
+                                {
+                                    profile.is_bedrock ? (
+                                        <img src="https://crafatar.com/avatars/c06f8906-4c8a-4911-9c29-ea1dbd1aab82?size=25" width={25} alt="" />
+                                    ) : (
+                                        <img src={`https://crafatar.com/avatars/${profile.uuid}?size=25`} alt={""} width={25} />
+                                    )
+                                }
                             </td>
                             <td>
                                 <Link to={`/players/${profile.uuid}`}>{profile.name}</Link>
