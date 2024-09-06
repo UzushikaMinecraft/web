@@ -24,13 +24,7 @@ export default function ProfilePage() {
     return profile && (
         <>
             <h2>プレイヤー: {profile.name}</h2>
-            {
-                profile.is_bedrock ? (
-                    <img src="https://crafatar.com/renders/head/c06f8906-4c8a-4911-9c29-ea1dbd1aab82" alt="" />
-                ) : (
-                    <img src={`https://crafatar.com/renders/head/${profile.uuid}`} alt={""} />
-                )
-            }
+            <img src={profile.avatar.head} width={100} alt="" />
             <table style={{marginTop: '.5rem'}}>
                 <tbody>
                     <tr>

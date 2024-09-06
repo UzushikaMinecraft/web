@@ -63,13 +63,7 @@ export default function LeaderboardPage() {
                                 {key + 1}位
                             </td>
                             <td>
-                                {
-                                    profile.is_bedrock ? (
-                                        <img src="https://crafatar.com/avatars/c06f8906-4c8a-4911-9c29-ea1dbd1aab82?size=25" width={25} alt="" />
-                                    ) : (
-                                        <img src={`https://crafatar.com/avatars/${profile.uuid}?size=25`} alt={""} width={25} />
-                                    )
-                                }
+                                <img src={profile.avatar.face} width={25} alt="" />
                             </td>
                             <td>
                                 <Link to={`/players/${profile.uuid}`}>{profile.name}</Link>

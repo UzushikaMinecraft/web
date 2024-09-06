@@ -12,4 +12,9 @@ export interface Profile {
     total_mob_kills: number;
     is_bedrock: boolean;
     xuid: string;
+    avatar: {
+        face: string;
+        head: string;
+        body: string;
+    }
 }
