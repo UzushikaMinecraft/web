@@ -1,7 +1,7 @@
 import { LoaderFunction, redirect } from "@remix-run/server-runtime";
+import { isAuthenticated } from "~/utils/auth";
 
 export const loader: LoaderFunction = async ({ request }) => {
-    const jwt = request.headers.get('Cookie')?.split(';').find(c => c.startsWith('jwt='));
-    if (!jwt) return redirect('http://uzsk.iamtakagi.net/auth');
+    if (!isAuthenticated(request)) return redirect('http://uzsk.iamtakagi.net/auth');
     return redirect('http://uzsk.iamtakagi.net/');
 };
